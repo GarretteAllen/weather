@@ -20,11 +20,11 @@ async def on_message(message):
         location = message.content.replace(command_prefix, '').lower()
         if len(location) >= 1:
             url = f'https://yahoo-weather5.p.rapidapi.com/weather?rapidapi-key={rak}&location={location}'
-            #try:
-            data = json.loads(requests.get(url).content)
-            data = parse_data(data)
-            await message.channel.send(embed=weather_messages(data, location))
-            #except KeyError:
-                #await message.channel.send(embed=error(location))
+            try:
+                data = json.loads(requests.get(url).content)
+                data = parse_data(data)
+                await message.channel.send(embed=weather_messages(data, location))
+            except KeyError:
+                await message.channel.send(embed=error(location))
 
 client.run(token)
